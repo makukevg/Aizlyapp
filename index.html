@@ -1,713 +1,2010 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aizly — Tu negocio atiende solo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #0a0a0f;
-    --white: #fafaf8;
-    --accent: #c8f135;
-    --accent2: #7c3aed;
-    --gray: #6b7280;
-    --light: #f4f4f0;
-    --card: #ffffff;
-    --border: #e8e8e2;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aizly — Tu negocio atiende solo</title>
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
-  html { scroll-behavior: smooth; }
+  <style>
+    /* ============================================================
+       TOKENS DE DISEÑO
+       ============================================================ */
+    :root {
+      --bg:        #080808;
+      --surface:   #111111;
+      --border:    rgba(255, 255, 255, 0.07);
+      --border-md: rgba(255, 255, 255, 0.11);
+      --text:      #F2F0EB;
+      --muted:     #6B6B6B;
+      --accent:    #C8F04C;   /* lima eléctrico — el único color real de la página */
+      --accent-dim: rgba(200, 240, 76, 0.08);
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--ink);
-    overflow-x: hidden;
-  }
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 40px;
-    background: rgba(250,250,248,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 22px; letter-spacing: -0.5px;
-    color: var(--ink);
-  }
-  .logo span { color: var(--accent2); }
-  .nav-cta {
-    background: var(--ink); color: var(--white);
-    padding: 10px 22px; border-radius: 100px;
-    font-size: 14px; font-weight: 500; text-decoration: none;
-    transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--accent2); }
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 120px 24px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 85% 80%, rgba(200,241,53,0.15) 0%, transparent 50%);
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--ink); color: var(--accent);
-    padding: 6px 16px; border-radius: 100px;
-    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
-    margin-bottom: 32px; z-index: 1;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(42px, 8vw, 88px);
-    font-weight: 800; line-height: 1.0;
-    letter-spacing: -2px;
-    max-width: 900px;
-    z-index: 1;
-    animation: fadeUp 0.7s ease 0.1s both;
-  }
-  .hero h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--accent2), #a855f7);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .hero-sub {
-    font-size: clamp(16px, 2.5vw, 20px);
-    color: var(--gray); max-width: 560px;
-    line-height: 1.6; margin-top: 24px; z-index: 1;
-    animation: fadeUp 0.7s ease 0.2s both;
-  }
-  .hero-actions {
-    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-    margin-top: 40px; z-index: 1;
-    animation: fadeUp 0.7s ease 0.3s both;
-  }
-  .btn-primary {
-    background: var(--ink); color: var(--white);
-    padding: 16px 32px; border-radius: 100px;
-    font-size: 16px; font-weight: 500; text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
-  .btn-secondary {
-    background: transparent; color: var(--ink);
-    padding: 16px 32px; border-radius: 100px;
-    font-size: 16px; font-weight: 500; text-decoration: none;
-    border: 1.5px solid var(--border);
-    transition: border-color 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--ink); }
+      --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+    }
 
-  .hero-stats {
-    display: flex; gap: 48px; margin-top: 64px; z-index: 1;
-    animation: fadeUp 0.7s ease 0.4s both;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px; font-weight: 800; color: var(--ink);
-  }
-  .stat-label { font-size: 13px; color: var(--gray); margin-top: 2px; }
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── SECTION ── */
-  section { padding: 100px 24px; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-size: 12px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--accent2);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 800; line-height: 1.1;
-    letter-spacing: -1.5px;
-  }
-  .section-sub {
-    font-size: 18px; color: var(--gray);
-    max-width: 540px; line-height: 1.6; margin-top: 16px;
-  }
+    html { scroll-behavior: smooth; }
 
-  /* ── CÓMO FUNCIONA ── */
-  .how-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2px; margin-top: 60px;
-    border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
-  }
-  .how-card {
-    background: var(--card); padding: 40px 32px;
-    border-right: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-  .how-card:last-child { border-right: none; }
-  .how-card:hover { background: var(--light); }
-  .how-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 48px; font-weight: 800;
-    color: var(--border); line-height: 1;
-    margin-bottom: 20px;
-  }
-  .how-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px; font-weight: 700; margin-bottom: 10px;
-  }
-  .how-card p { font-size: 15px; color: var(--gray); line-height: 1.5; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-  /* ── NICHOS ── */
-  .nichos-bg { background: var(--ink); color: var(--white); }
-  .nichos-bg .section-label { color: var(--accent); }
-  .nichos-bg .section-sub { color: rgba(255,255,255,0.5); }
-  .nichos-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px; margin-top: 60px;
-  }
-  .nicho-card {
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px; padding: 40px 36px;
-    position: relative; overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .nicho-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-  .nicho-icon {
-    font-size: 40px; margin-bottom: 20px; display: block;
-  }
-  .nicho-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px; font-weight: 700; margin-bottom: 12px;
-  }
-  .nicho-card p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px; }
-  .nicho-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .nicho-tag {
-    font-size: 12px; padding: 4px 12px; border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6);
-  }
-  .nicho-demo {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 24px; color: var(--accent);
-    font-size: 14px; font-weight: 500; text-decoration: none;
-    transition: gap 0.2s;
-  }
-  .nicho-demo:hover { gap: 10px; }
+    /* ============================================================
+       UTILITIES
+       ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: 24px;
+    }
 
-  /* ── PRECIOS ── */
-  .planes-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px; margin-top: 60px; align-items: start;
-  }
-  .plan-card {
-    border: 1.5px solid var(--border);
-    border-radius: 24px; padding: 40px 36px;
-    position: relative; transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .plan-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-  .plan-card.featured {
-    background: var(--ink); color: var(--white);
-    border-color: var(--ink);
-  }
-  .plan-badge {
-    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--accent); color: var(--ink);
-    font-size: 12px; font-weight: 700; padding: 4px 16px;
-    border-radius: 100px; white-space: nowrap; letter-spacing: 0.5px;
-  }
-  .plan-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px; font-weight: 700; margin-bottom: 8px;
-  }
-  .plan-price {
-    font-family: 'Syne', sans-serif;
-    font-size: 52px; font-weight: 800; line-height: 1;
-    letter-spacing: -2px; margin: 20px 0 4px;
-  }
-  .plan-price span { font-size: 20px; font-weight: 400; }
-  .plan-period { font-size: 14px; color: var(--gray); margin-bottom: 8px; }
-  .plan-card.featured .plan-period { color: rgba(255,255,255,0.5); }
-  .plan-setup {
-    font-size: 13px; color: var(--gray);
-    padding: 8px 0; border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-  }
-  .plan-card.featured .plan-setup { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.1); }
-  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  .plan-features li {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 15px; line-height: 1.4;
-  }
-  .plan-features li::before {
-    content: "✓";
-    font-size: 13px; font-weight: 700;
-    color: var(--accent2); flex-shrink: 0; margin-top: 1px;
-  }
-  .plan-card.featured .plan-features li::before { color: var(--accent); }
-  .plan-features li.off { opacity: 0.3; }
-  .plan-features li.off::before { content: "—"; color: var(--gray); }
-  .plan-cta {
-    display: block; text-align: center; margin-top: 32px;
-    padding: 14px; border-radius: 100px;
-    font-size: 15px; font-weight: 600; text-decoration: none;
-    transition: all 0.2s;
-  }
-  .plan-card:not(.featured) .plan-cta {
-    background: var(--ink); color: var(--white);
-  }
-  .plan-card:not(.featured) .plan-cta:hover { background: var(--accent2); }
-  .plan-card.featured .plan-cta {
-    background: var(--accent); color: var(--ink);
-  }
-  .plan-card.featured .plan-cta:hover { background: #d4f550; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-  /* ── DEMO ── */
-  .demo-section { background: var(--light); }
-  .demo-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-  }
-  .demo-text .section-title { font-size: clamp(28px, 4vw, 42px); }
-  .demo-text p { font-size: 17px; color: var(--gray); line-height: 1.7; margin-top: 20px; }
-  .demo-preview {
-    background: var(--ink); border-radius: 24px;
-    padding: 32px; position: relative;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
-  }
-  .demo-bar {
-    display: flex; align-items: center; gap: 8px;
-    margin-bottom: 24px;
-  }
-  .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .demo-url {
-    flex: 1; background: rgba(255,255,255,0.08);
-    border-radius: 6px; padding: 6px 12px;
-    font-size: 12px; color: rgba(255,255,255,0.4);
-    font-family: monospace;
-  }
-  .chat-messages { display: flex; flex-direction: column; gap: 12px; }
-  .chat-msg {
-    max-width: 80%; padding: 12px 16px;
-    border-radius: 16px; font-size: 14px; line-height: 1.5;
-  }
-  .chat-msg.bot {
-    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85);
-    border-radius: 4px 16px 16px 16px;
-    align-self: flex-start;
-  }
-  .chat-msg.user {
-    background: var(--accent2); color: white;
-    border-radius: 16px 4px 16px 16px;
-    align-self: flex-end;
-  }
-  .chat-typing {
-    display: flex; gap: 4px; padding: 12px 16px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 4px 16px 16px 16px;
-    width: fit-content;
-  }
-  .typing-dot {
-    width: 6px; height: 6px; background: rgba(255,255,255,0.4);
-    border-radius: 50%;
-    animation: typing 1.2s infinite;
-  }
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--muted);
+    }
 
-  /* ── FAQ ── */
-  .faq-list { margin-top: 60px; display: flex; flex-direction: column; gap: 2px; }
-  .faq-item {
-    border: 1px solid var(--border); border-radius: 12px;
-    overflow: hidden; margin-bottom: 8px;
-  }
-  .faq-q {
-    width: 100%; background: none; border: none; cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 24px 28px; text-align: left;
-    font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 600;
-    color: var(--ink); transition: background 0.2s;
-  }
-  .faq-q:hover { background: var(--light); }
-  .faq-icon { font-size: 20px; transition: transform 0.3s; flex-shrink: 0; }
-  .faq-a {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-    padding: 0 28px;
-    font-size: 15px; color: var(--gray); line-height: 1.7;
-  }
-  .faq-item.open .faq-a { max-height: 200px; padding: 0 28px 24px; }
-  .faq-item.open .faq-icon { transform: rotate(45deg); }
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding-block: 16px;
+      background: rgba(8, 8, 8, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
 
-  /* ── CTA FINAL ── */
-  .cta-final {
-    background: var(--ink); color: var(--white);
-    text-align: center; padding: 120px 24px;
-  }
-  .cta-final .section-title { color: var(--white); max-width: 700px; margin: 0 auto; }
-  .cta-final p { color: rgba(255,255,255,0.5); font-size: 18px; margin: 20px auto 0; max-width: 480px; }
-  .cta-final .btn-primary {
-    background: var(--accent); color: var(--ink);
-    margin-top: 40px; display: inline-block; font-size: 17px;
-    padding: 18px 40px;
-  }
-  .cta-final .btn-primary:hover { background: #d4f550; }
-  .wa-note { font-size: 14px; color: rgba(255,255,255,0.3); margin-top: 16px; }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  /* ── FOOTER ── */
-  footer {
-    padding: 40px 24px; text-align: center;
-    border-top: 1px solid var(--border);
-    font-size: 14px; color: var(--gray);
-  }
-  footer strong { color: var(--ink); font-family: 'Syne', sans-serif; }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes typing {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-4px); opacity: 1; }
-  }
+    .nav__logo span { color: var(--accent); }
 
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+    .nav__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--accent);
+      color: #080808;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.4s var(--ease-out-expo);
+    }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .hero { padding: 100px 20px 60px; }
-    .demo-inner { grid-template-columns: 1fr; gap: 40px; }
-    .hero-stats { gap: 24px; }
-    section { padding: 70px 20px; }
-    .how-grid { grid-template-columns: 1fr; }
-    .how-card { border-right: none; border-bottom: 1px solid var(--border); }
-    .how-card:last-child { border-bottom: none; }
-  }
-</style>
+    .nav__cta:hover {
+      background: #d9ff5a;
+      transform: translateY(-1px);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      /* Asimetría deliberada: copy ocupa más espacio que el mockup */
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 48px;
+      padding-top: 96px;
+      padding-bottom: 80px;
+    }
+
+    /* — Copy side — */
+    .hero__copy {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 6px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(200, 240, 76, 0.2);
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .hero__badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      /* pulso suave */
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    .hero__badge-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    /* La palabra clave en lima, como un subrayado semántico */
+    .hero__headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero__sub {
+      font-size: 17px;
+      color: #9A9A9A;
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    .hero__sub strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      background: var(--accent);
+      color: #080808;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .btn-primary:hover {
+      background: #d9ff5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(200, 240, 76, 0.25);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 100px;
+      text-decoration: none;
+      border: 1px solid var(--border-md);
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .hero__stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 8px;
+    }
+
+    .hero__stat-value {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .hero__stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* — Mockup side — */
+    .hero__mockup {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Glow ambiental detrás del mockup */
+    .hero__mockup::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(ellipse at center, rgba(200, 240, 76, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .chat-window {
+      width: 100%;
+      max-width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    /* Header del chat */
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .chat-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid rgba(200,240,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .chat-meta { flex: 1; }
+
+    .chat-name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chat-status {
+      font-size: 11px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chat-status::before {
+      content: '';
+      display: block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    /* Mensajes */
+    .chat-body {
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 260px;
+    }
+
+    .msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      animation: msgIn 0.4s var(--ease-out-expo) both;
+    }
+
+    .msg--user {
+      flex-direction: row-reverse;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg__bubble {
+      max-width: 72%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Burbuja del cliente */
+    .msg--user .msg__bubble {
+      background: rgba(255,255,255,0.07);
+      color: #D0CEC9;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Burbuja del asistente */
+    .msg--bot .msg__bubble {
+      background: rgba(200, 240, 76, 0.1);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(200,240,76,0.12);
+    }
+
+    /* Cursor parpadeante mientras escribe */
+    .msg--typing .msg__bubble {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 12px 16px;
+    }
+
+    .typing-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50%       { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .chat-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chat-input-mock {
+      flex: 1;
+      padding: 9px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .chat-send {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #080808;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       SECCIÓN RUBROS — BENTO GRID
+       ============================================================ */
+    .rubros {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .rubros__header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* Bento Grid:
+       Fila 1: [gastronomía  2/3] [estética 1/3]
+       Fila 2: [hospedaje 1/3] [salud 1/3] [cta 1/3] */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 14px;
+    }
+
+    /* Gastronomía: fila 1, cols 1-2 */
+    .bento__card--gastro    { grid-column: 1 / 3; }
+    /* Estética: fila 1, col 3 */
+    .bento__card--estetica  { grid-column: 3 / 4; }
+    /* Hospedaje */
+    .bento__card--hospedaje { grid-column: 1 / 2; }
+    /* Salud */
+    .bento__card--salud     { grid-column: 2 / 3; }
+    /* CTA card */
+    .bento__card--cta       { grid-column: 3 / 4; }
+
+    /* Tarjeta base */
+    .bento__card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      /* Transición premium en todo */
+      transition: border-color 0.4s var(--ease-out-expo),
+                  transform 0.4s var(--ease-out-expo),
+                  box-shadow 0.4s var(--ease-out-expo);
+    }
+
+    /* Hover: elevación + glow en borde */
+    .bento__card:hover {
+      border-color: rgba(200, 240, 76, 0.28);
+      transform: translateY(-3px);
+      box-shadow:
+        0 0 0 1px rgba(200, 240, 76, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(200, 240, 76, 0.04);
+    }
+
+    /* Glow de borde (pseudo-elemento overlay) */
+    .bento__card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(200,240,76,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out-expo);
+      pointer-events: none;
+    }
+
+    .bento__card:hover::before { opacity: 1; }
+
+    /* Icono — se eleva en hover */
+    .bento__icon {
+      font-size: 28px;
+      display: block;
+      transition: transform 0.4s var(--ease-out-expo);
+      width: fit-content;
+    }
+
+    .bento__card:hover .bento__icon {
+      transform: translateY(-5px);
+    }
+
+    .bento__content { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+    .bento__rubro {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .bento__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* En la tarjeta grande, título más prominente */
+    .bento__card--gastro .bento__title {
+      font-size: 26px;
+    }
+
+    .bento__desc {
+      font-size: 14px;
+      color: #7A7A7A;
+      line-height: 1.65;
+      max-width: 420px;
+    }
+
+    /* Tags de capacidades */
+    .bento__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .bento__tag {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 11px;
+      color: var(--muted);
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .bento__card:hover .bento__tag {
+      border-color: rgba(200,240,76,0.15);
+      color: #C8F04C;
+      background: rgba(200,240,76,0.05);
+    }
+
+    /* Link de demo dentro de la card */
+    .bento__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      transition: color 0.3s var(--ease-out-expo), gap 0.3s var(--ease-out-expo);
+    }
+
+    .bento__link:hover,
+    .bento__card:hover .bento__link {
+      color: var(--accent);
+      gap: 10px;
+    }
+
+    /* ============================================================
+       CTA CARD (especial — no lleva link externo)
+       ============================================================ */
+    .bento__card--cta {
+      background: var(--accent-dim);
+      border-color: rgba(200,240,76,0.15);
+      justify-content: space-between;
+    }
+
+    .bento__card--cta:hover {
+      background: rgba(200,240,76,0.12);
+    }
+
+    .cta-card__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cta-card__text {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .cta-card__text em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .cta-card__arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #080808;
+      font-size: 18px;
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+
+    .bento__card--cta:hover .cta-card__arrow {
+      transform: translateX(4px) translateY(-4px);
+    }
+
+    /* ============================================================
+       LAYOUT INTERNO DE TARJETA GRANDE (gastronomía)
+       ============================================================ */
+    .bento__card--gastro .bento__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* En la card grande el icono va arriba a la izquierda */
+    .bento__card--gastro .bento__icon { font-size: 36px; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 120px;
+        gap: 48px;
+      }
+
+      .hero__mockup { justify-content: flex-start; }
+      .chat-window { max-width: 100%; }
+
+      /* En mobile el bento colapsa a 1 columna */
+      .bento {
+        grid-template-columns: 1fr;
+      }
+
+      .bento__card--gastro,
+      .bento__card--estetica,
+      .bento__card--hospedaje,
+      .bento__card--salud,
+      .bento__card--cta {
+        grid-column: 1 / -1;
+      }
+
+      .bento__card--gastro .bento__inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero__stats { gap: 20px; }
+      .hero__actions { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Preferencias de movimiento reducido */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ============================================================
+       SECTION HEADER (compartido)
+       ============================================================ */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+
+    .section-header--split {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .section-header--split .section-sub {
+      padding-top: 48px; /* alinea con el subtítulo */
+      max-width: 320px;
+    }
+
+    .accent { color: var(--accent); font-style: normal; }
+
+    /* ============================================================
+       CÓMO FUNCIONA
+       ============================================================ */
+    .como-funciona {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: steps;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      padding-block: 36px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s var(--ease-out-expo);
+    }
+
+    .step:first-child { border-top: 1px solid var(--border); }
+
+    .step:hover { background: rgba(255,255,255,0.015); }
+
+    .step__number {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding-top: 4px;
+    }
+
+    .step__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .step__desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    @media (max-width: 600px) {
+      .step { grid-template-columns: 48px 1fr; gap: 16px; }
+      .section-header--split { flex-direction: column; }
+      .section-header--split .section-sub { padding-top: 0; }
+    }
+
+    /* ============================================================
+       DEMOS EN VIVO
+       ============================================================ */
+    .demos {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .demos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .demo-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .demo-card:hover {
+      border-color: rgba(200,240,76,0.25);
+      background: rgba(255,255,255,0.03);
+      transform: translateY(-2px);
+    }
+
+    .demo-card__icon { font-size: 28px; flex-shrink: 0; }
+
+    .demo-card__info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .demo-card__name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .demo-card__type {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .demo-card__arrow {
+      font-size: 18px;
+      color: var(--muted);
+      transition: color 0.3s, transform 0.3s var(--ease-out-expo);
+    }
+
+    .demo-card:hover .demo-card__arrow {
+      color: var(--accent);
+      transform: translate(3px, -3px);
+    }
+
+    @media (max-width: 700px) {
+      .demos-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       PLANES Y PRECIOS
+       ============================================================ */
+    .precios {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .planes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 800px;
+    }
+
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+      transition: border-color 0.4s var(--ease-out-expo);
+    }
+
+    .plan-card--featured {
+      border-color: rgba(200,240,76,0.3);
+      background: rgba(200,240,76,0.04);
+    }
+
+    .plan-card__badge {
+      position: absolute;
+      top: -12px;
+      left: 36px;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: #080808;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 100px;
+    }
+
+    .plan-card__name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .plan-card__price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .plan-card__currency {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .plan-card__amount {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .plan-card__period {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .plan-card__setup {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .plan-card__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .plan-card__features li {
+      font-size: 14px;
+      color: #9A9A9A;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .plan-card__features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+      top: 2px;
+    }
+
+    .plan-card__cta {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .plan-card__cta--primary {
+      background: var(--accent);
+      color: #080808;
+    }
+
+    .plan-card__cta--primary:hover {
+      background: #d9ff5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,240,76,0.2);
+    }
+
+    .plan-card__cta--ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-md);
+    }
+
+    .plan-card__cta--ghost:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .precios__nota {
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .precios__nota-link {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .precios__nota-link:hover { opacity: 0.8; }
+
+    @media (max-width: 700px) {
+      .planes-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FAQs
+       ============================================================ */
+    .faqs {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      text-align: left;
+      transition: color 0.3s;
+    }
+
+    .faq-btn:hover { color: var(--accent); }
+
+    .faq-btn[aria-expanded="true"] { color: var(--accent); }
+
+    .faq-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--muted);
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.3s, background 0.3s;
+    }
+
+    .faq-icon::before { width: 10px; height: 1.5px; }
+    .faq-icon::after  { width: 1.5px; height: 10px; }
+
+    .faq-btn[aria-expanded="true"] .faq-icon {
+      border-color: rgba(200,240,76,0.3);
+      background: var(--accent-dim);
+    }
+
+    .faq-btn[aria-expanded="true"] .faq-icon::before,
+    .faq-btn[aria-expanded="true"] .faq-icon::after {
+      background: var(--accent);
+    }
+
+    .faq-btn[aria-expanded="true"] .faq-icon::after {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    .faq-answer {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-bottom: 24px;
+      max-width: 640px;
+      /* Animación de acordeón */
+      overflow: hidden;
+      animation: faqOpen 0.35s var(--ease-out-expo) both;
+    }
+
+    .faq-answer[hidden] { display: none; }
+
+    @keyframes faqOpen {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       CTA FINAL
+       ============================================================ */
+    .cta-final {
+      padding-block: 120px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-final__box {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(200,240,76,0.15);
+      border-radius: 32px;
+      padding: 80px 64px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Glow de fondo centrado */
+    .cta-final__glow {
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(200,240,76,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-final__content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cta-final__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .cta-final__sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .btn-primary--lg {
+      padding: 16px 32px;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+
+    .cta-final__trust {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .cta-final__box { padding: 48px 24px; }
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      padding-block: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer__copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer__wa {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer__wa:hover { color: var(--accent); }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">Aiz<span>ly</span></div>
-  <a href="#contacto" class="nav-cta">Quiero mi asistente 24/7 →</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-badge">🤖 Asistente virtual con IA</div>
-  <h1>Tu negocio<br><em>atiende solo.</em></h1>
-  <p class="hero-sub">Respondemos las consultas de tus clientes las 24 horas, todos los días. Sin que vos tengas que hacer nada.</p>
-  <div class="hero-actions">
-    <a href="#demo" class="btn-primary">Ver demo en vivo →</a>
-    <a href="#planes" class="btn-secondary">Ver precios</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">24/7</div>
-      <div class="stat-label">Atención sin pausas</div>
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="nav" aria-label="Navegación principal">
+    <div class="container nav__inner">
+      <a href="/" class="nav__logo">Aizly<span>.</span></a>
+      <a href="#contacto" class="nav__cta">
+        Quiero mi asistente
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
-    <div class="stat">
-      <div class="stat-num">&lt;3s</div>
-      <div class="stat-label">Tiempo de respuesta</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Consultas simultáneas</div>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<!-- CÓMO FUNCIONA -->
-<section id="como-funciona">
-  <div class="container">
-    <p class="section-label reveal">Cómo funciona</p>
-    <h2 class="section-title reveal">Simple para vos.<br>Mágico para tus clientes.</h2>
-    <p class="section-sub reveal">En menos de una semana tu negocio tiene un asistente inteligente funcionando.</p>
-    <div class="how-grid reveal">
-      <div class="how-card">
-        <div class="how-num">01</div>
-        <h3>Nos mandás la info</h3>
-        <p>Carta, servicios, horarios, precios, fotos. Todo lo que necesita saber el asistente sobre tu negocio.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num">02</div>
-        <h3>Configuramos la IA</h3>
-        <p>Entrenamos al asistente con el contenido de tu negocio. Responde como si fuera un empleado tuyo.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num">03</div>
-        <h3>Publicamos la app</h3>
-        <p>Tu negocio tiene su propia página web con el asistente integrado. Lista para compartir en 48hs.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num">04</div>
-        <h3>Tus clientes consultan</h3>
-        <p>Compartís el link en Instagram, WhatsApp, Google Maps. Tus clientes preguntan y el asistente responde.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- NICHOS -->
-<section class="nichos-bg" id="nichos">
-  <div class="container">
-    <p class="section-label reveal">Para tu tipo de negocio</p>
-    <h2 class="section-title reveal">Hecho para<br>negocios reales.</h2>
-    <p class="section-sub reveal">No es un producto genérico. Cada asistente se adapta al rubro y la personalidad de tu negocio.</p>
-    <div class="nichos-grid">
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section class="hero container" aria-labelledby="hero-headline">
 
-      <!-- RESTAURANTE -->
-      <div class="nicho-card reveal">
-        <span class="nicho-icon">🍽️</span>
-        <h3>Restaurantes & Gastronomía</h3>
-        <p>Parrillas, restaurantes, cafeterías, deliveries. El asistente muestra la carta, informa horarios, toma consultas sobre reservas y responde preguntas del menú.</p>
-        <div class="nicho-tags">
-          <span class="nicho-tag">Carta digital</span>
-          <span class="nicho-tag">Horarios</span>
-          <span class="nicho-tag">Reservas</span>
-          <span class="nicho-tag">Especiales del día</span>
+    <!-- Copy lado izquierdo -->
+    <div class="hero__copy">
+
+      <!-- Badge de estado -->
+      <div class="hero__badge" role="status" aria-label="Servicio activo">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        <span class="hero__badge-text">Asistentes activos ahora mismo</span>
+      </div>
+
+      <!-- Titular con jerarquía agresiva -->
+      <h1 class="hero__headline" id="hero-headline">
+        Tu negocio<br>
+        <em>atiende solo.</em><br>
+        Literalmente.
+      </h1>
+
+      <!-- Copy humano, sin clichés -->
+      <p class="hero__sub">
+        Mientras vos dormís, tu WhatsApp responde reservas.
+        Mientras atendés la mesa 4, un cliente nuevo pregunta por el menú
+        y recibe respuesta en <strong>menos de 3 segundos</strong>.
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero__actions">
+        <a href="#contacto" class="btn-primary">
+          Quiero ver cómo funciona
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#rubros" class="btn-ghost">Ver demos en vivo</a>
+      </div>
+
+      <!-- Métricas rápidas -->
+      <div class="hero__stats" role="list" aria-label="Métricas clave">
+        <div role="listitem">
+          <div class="hero__stat-value">24/7</div>
+          <div class="hero__stat-label">Sin pausas ni feriados</div>
         </div>
-        <a href="https://afuegolento.netlify.app/" target="_blank" class="nicho-demo">
-          Ver demo real — A Fuego Lento →
+        <div role="listitem">
+          <div class="hero__stat-value">&lt;3s</div>
+          <div class="hero__stat-label">Tiempo de respuesta</div>
+        </div>
+        <div role="listitem">
+          <div class="hero__stat-value">∞</div>
+          <div class="hero__stat-label">Consultas a la vez</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mockup lado derecho: ventana de chat simulada -->
+    <div class="hero__mockup" aria-label="Vista previa del asistente virtual" role="img">
+      <div class="chat-window">
+
+        <!-- Header del chat -->
+        <div class="chat-header">
+          <div class="chat-avatar" aria-hidden="true">🤖</div>
+          <div class="chat-meta">
+            <div class="chat-name">Asistente de A Fuego Lento</div>
+            <div class="chat-status">En línea ahora</div>
+          </div>
+        </div>
+
+        <!-- Conversación animada -->
+        <div class="chat-body" id="chat-body" aria-live="polite" aria-label="Conversación de ejemplo">
+
+          <!-- Los mensajes se inyectan desde JS -->
+
+        </div>
+
+        <!-- Input simulado (decorativo) -->
+        <div class="chat-footer" aria-hidden="true">
+          <div class="chat-input-mock">Escribí tu consulta...</div>
+          <div class="chat-send">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN DE RUBROS — BENTO GRID
+       ============================================================ -->
+  <section class="rubros" id="rubros" aria-labelledby="rubros-title">
+    <div class="container">
+
+      <header class="rubros__header">
+        <span class="eyebrow">Para tu negocio</span>
+        <h2 class="section-title" id="rubros-title">
+          Hecho para negocios reales.<br>No para casos de uso.
+        </h2>
+        <p class="section-sub">
+          Cada asistente aprende tu carta, tus horarios, tu forma de hablar.
+          No es un bot genérico — es tu negocio en versión digital.
+        </p>
+      </header>
+
+      <!-- Bento Grid de rubros -->
+      <div class="bento" role="list">
+
+        <!-- ───────────────────────────────────────
+             CARD GRANDE: Gastronomía (2 columnas)
+             ─────────────────────────────────────── -->
+        <a
+          href="https://afuegolento.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bento__card bento__card--gastro"
+          role="listitem"
+          aria-label="Gastronomía — ver demo A Fuego Lento"
+        >
+          <span class="bento__icon" aria-hidden="true">🍽️</span>
+
+          <div class="bento__inner">
+            <div class="bento__content">
+              <span class="bento__rubro">Gastronomía</span>
+              <h3 class="bento__title">Tu carta siempre disponible.<br>Reservas sin llamadas.</h3>
+              <p class="bento__desc">
+                Parrillas, restaurantes, cafeterías, deliveries.
+                El asistente muestra el menú, responde por los especiales del día
+                y guía al cliente a reservar — sin que vos muevas un dedo.
+              </p>
+              <div class="bento__tags" aria-label="Capacidades">
+                <span class="bento__tag">Carta digital</span>
+                <span class="bento__tag">Horarios</span>
+                <span class="bento__tag">Reservas</span>
+                <span class="bento__tag">Especiales del día</span>
+              </div>
+            </div>
+
+            <!-- Mockup decorativo en la card grande -->
+            <div aria-hidden="true" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:12px; color:var(--muted); margin-bottom:4px;">Consulta real de cliente</div>
+              <div style="font-size:13px; background:rgba(255,255,255,0.05); border-radius:10px 10px 10px 2px; padding:10px 13px; color:#C0BEB9;">
+                ¿Tienen opciones vegetarianas?
+              </div>
+              <div style="font-size:13px; background:rgba(200,240,76,0.08); border:1px solid rgba(200,240,76,0.1); border-radius:10px 10px 2px 10px; padding:10px 13px; color:var(--text);">
+                ¡Sí! Tenemos empanadas de verduras, pasta primavera y nuestra ensalada de la huerta. ¿Querés ver el menú completo?
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="https://afuegolento.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bento__link"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            Ver demo — A Fuego Lento
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </a>
+
+        <!-- ───────────────────────────────────────
+             CARD: Estética (1 columna)
+             ─────────────────────────────────────── -->
+        <a
+          href="https://belladona.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bento__card bento__card--estetica"
+          role="listitem"
+          aria-label="Estética y peluquería — ver demo Bella Donna"
+        >
+          <span class="bento__icon" aria-hidden="true">✂️</span>
+          <div class="bento__content">
+            <span class="bento__rubro">Peluquería & Estética</span>
+            <h3 class="bento__title">Turnos que se llenan solos.</h3>
+            <p class="bento__desc">
+              El asistente muestra tus servicios, precios y disponibilidad.
+              El cliente llega con todo claro — vos solo confirmás.
+            </p>
+            <div class="bento__tags" aria-label="Capacidades">
+              <span class="bento__tag">Servicios & precios</span>
+              <span class="bento__tag">Turnos</span>
+              <span class="bento__tag">WhatsApp</span>
+            </div>
+          </div>
+          <span class="bento__link" aria-hidden="true">
+            Demo — Bella Donna
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- ───────────────────────────────────────
+             CARD: Hospedaje (1 columna)
+             ─────────────────────────────────────── -->
+        <a
+          href="https://celadon-faun-274079.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bento__card bento__card--hospedaje"
+          role="listitem"
+          aria-label="Hospedaje y turismo — ver demo Los Manantiales"
+        >
+          <span class="bento__icon" aria-hidden="true">🏡</span>
+          <div class="bento__content">
+            <span class="bento__rubro">Hospedaje & Turismo</span>
+            <h3 class="bento__title">El turista pregunta. El asistente responde.</h3>
+            <p class="bento__desc">
+              Disponibilidad, precios por temporada, servicios, check-in.
+              Todo lo que un huésped necesita saber antes de reservar.
+            </p>
+            <div class="bento__tags" aria-label="Capacidades">
+              <span class="bento__tag">Disponibilidad</span>
+              <span class="bento__tag">Precios</span>
+              <span class="bento__tag">Temporadas</span>
+            </div>
+          </div>
+          <span class="bento__link" aria-hidden="true">
+            Demo — Los Manantiales
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- ───────────────────────────────────────
+             CARD: Salud (1 columna)
+             ─────────────────────────────────────── -->
+        <a
+          href="https://sonrisaok.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bento__card bento__card--salud"
+          role="listitem"
+          aria-label="Salud y odontología — ver demo Sonrisa Plena"
+        >
+          <span class="bento__icon" aria-hidden="true">🦷</span>
+          <div class="bento__content">
+            <span class="bento__rubro">Odontología & Salud</span>
+            <h3 class="bento__title">El paciente llega informado.<br>Vos solo atendés.</h3>
+            <p class="bento__desc">
+              Obras sociales, precios, turnos y urgencias.
+              El asistente filtra y organiza — sin saturar tu WhatsApp.
+            </p>
+            <div class="bento__tags" aria-label="Capacidades">
+              <span class="bento__tag">Obras sociales</span>
+              <span class="bento__tag">Turnos</span>
+              <span class="bento__tag">Urgencias</span>
+            </div>
+          </div>
+          <span class="bento__link" aria-hidden="true">
+            Demo — Sonrisa Plena
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- ───────────────────────────────────────
+             CTA CARD (1 columna — llamada a la acción)
+             ─────────────────────────────────────── -->
+        <a
+          href="#contacto"
+          class="bento__card bento__card--cta"
+          role="listitem"
+          aria-label="¿Tu rubro no está? Hablamos"
+        >
+          <span class="cta-card__label">¿Tu rubro no está?</span>
+          <p class="cta-card__text">
+            Si tu negocio atiende clientes,<br>
+            <em>lo podemos automatizar.</em>
+          </p>
+          <div class="cta-card__arrow" aria-hidden="true">→</div>
+        </a>
+
+      </div>
+      <!-- /bento -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CÓMO FUNCIONA
+       ============================================================ -->
+  <section class="como-funciona" id="como-funciona" aria-labelledby="cf-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="eyebrow">El proceso</span>
+        <h2 class="section-title" id="cf-title">
+          De cero a<br><em class="accent">funcionando en 5 días.</em>
+        </h2>
+        <p class="section-sub">
+          Vos nos mandás la info. Nosotros hacemos todo lo demás.
+        </p>
+      </header>
+
+      <ol class="steps" aria-label="Pasos del proceso">
+        <li class="step">
+          <div class="step__number" aria-hidden="true">01</div>
+          <div class="step__content">
+            <h3 class="step__title">Nos mandás la info</h3>
+            <p class="step__desc">Carta, servicios, horarios, precios. Lo que sabe cualquier empleado tuyo — eso es todo lo que necesitamos.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__number" aria-hidden="true">02</div>
+          <div class="step__content">
+            <h3 class="step__title">Entrenamos al asistente</h3>
+            <p class="step__desc">Lo configuramos con tu voz y tu negocio. Responde como si te conociera de toda la vida.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__number" aria-hidden="true">03</div>
+          <div class="step__content">
+            <h3 class="step__title">Publicamos tu app</h3>
+            <p class="step__desc">Tu negocio tiene su propia web con el asistente integrado. Lista para compartir en Instagram, WhatsApp y Google Maps.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__number" aria-hidden="true">04</div>
+          <div class="step__content">
+            <h3 class="step__title">Tus clientes preguntan. El asistente responde.</h3>
+            <p class="step__desc">Vos te enterás cuando ya hay un cliente listo para reservar. Sin interrupciones, sin mensajes a las 11 de la noche.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       DEMOS EN VIVO
+       ============================================================ -->
+  <section class="demos" id="demos" aria-labelledby="demos-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="eyebrow">Demos reales</span>
+        <h2 class="section-title" id="demos-title">
+          Probá los asistentes<br>funcionando ahora mismo.
+        </h2>
+        <p class="section-sub">
+          No son capturas de pantalla. Son negocios reales. Preguntales lo que quieras.
+        </p>
+      </header>
+
+      <div class="demos-grid">
+        <a href="https://afuegolento.netlify.app/" target="_blank" rel="noopener noreferrer" class="demo-card">
+          <span class="demo-card__icon" aria-hidden="true">🍽️</span>
+          <div class="demo-card__info">
+            <span class="demo-card__name">A Fuego Lento</span>
+            <span class="demo-card__type">Parrilla & Pastas · Villa Gesell</span>
+          </div>
+          <span class="demo-card__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="https://celadon-faun-274079.netlify.app/" target="_blank" rel="noopener noreferrer" class="demo-card">
+          <span class="demo-card__icon" aria-hidden="true">🏡</span>
+          <div class="demo-card__info">
+            <span class="demo-card__name">Los Manantiales</span>
+            <span class="demo-card__type">Hospedaje · Villa Gesell</span>
+          </div>
+          <span class="demo-card__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="https://belladona.vercel.app/" target="_blank" rel="noopener noreferrer" class="demo-card">
+          <span class="demo-card__icon" aria-hidden="true">✂️</span>
+          <div class="demo-card__info">
+            <span class="demo-card__name">Bella Donna Studio</span>
+            <span class="demo-card__type">Peluquería & Beauty · Villa Gesell</span>
+          </div>
+          <span class="demo-card__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="https://sonrisaok.netlify.app/" target="_blank" rel="noopener noreferrer" class="demo-card">
+          <span class="demo-card__icon" aria-hidden="true">🦷</span>
+          <div class="demo-card__info">
+            <span class="demo-card__name">Sonrisa Plena</span>
+            <span class="demo-card__type">Odontología · Villa Gesell</span>
+          </div>
+          <span class="demo-card__arrow" aria-hidden="true">↗</span>
         </a>
       </div>
-
-      <!-- HOSPEDAJES -->
-      <div class="nicho-card reveal">
-        <span class="nicho-icon">🏨</span>
-        <h3>Hospedajes & Turismo</h3>
-        <p>Hoteles, apart-hoteles, cabañas, hostels. El asistente informa disponibilidad, precios por temporada, servicios, check-in y todo lo que un turista necesita saber antes de reservar.</p>
-        <div class="nicho-tags">
-          <span class="nicho-tag">Disponibilidad</span>
-          <span class="nicho-tag">Precios</span>
-          <span class="nicho-tag">Servicios</span>
-          <span class="nicho-tag">Temporadas</span>
-        </div>
-        <a href="https://celadon-faun-274079.netlify.app/" target="_blank" class="nicho-demo">Ver demo real — Los Manantiales →</a>
-      </div>
-
-      <!-- PELUQUERÍAS -->
-      <div class="nicho-card reveal">
-        <span class="nicho-icon">✂️</span>
-        <h3>Peluquerías & Estética</h3>
-        <p>Peluquerías, barberías, centros de estética, nail bars. El asistente muestra los servicios y precios, informa disponibilidad y guía al cliente para que saque un turno por WhatsApp.</p>
-        <div class="nicho-tags">
-          <span class="nicho-tag">Servicios & precios</span>
-          <span class="nicho-tag">Turnos</span>
-          <span class="nicho-tag">Profesionales</span>
-          <span class="nicho-tag">Ubicación</span>
-        </div>
-        <a href="https://belladona.vercel.app/" target="_blank" class="nicho-demo">Ver demo real — Bella Donna →</a>
-      </div>
-
-      <div class="nicho-card reveal">
-        <div class="nicho-emoji">🦷</div>
-        <h3>Odontología & Salud</h3>
-        <p>Clínicas dentales, consultorios odontológicos. El asistente informa servicios, precios, obras sociales aceptadas, turnos y atiende urgencias derivando al WhatsApp del profesional.</p>
-        <div class="nicho-tags">
-          <span class="nicho-tag">Servicios & precios</span>
-          <span class="nicho-tag">Obras sociales</span>
-          <span class="nicho-tag">Turnos</span>
-          <span class="nicho-tag">Urgencias</span>
-        </div>
-        <a href="https://sonrisaok.netlify.app/" target="_blank" class="nicho-demo">Ver demo real — Sonrisa Plena →</a>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- DEMO EN VIVO -->
-<section class="demo-section" id="demo">
-  <div class="container">
-    <p class="section-label reveal">Demos en vivo</p>
-    <h2 class="section-title reveal">Probá los 3 asistentes<br>funcionando ahora.</h2>
-    <p class="section-sub reveal">Estos son negocios reales con su asistente activo. Haceles preguntas como si fueras un cliente.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px;">
-      <a href="https://afuegolento.netlify.app/" target="_blank" style="text-decoration:none;">
-        <div class="demo-card reveal" style="background:var(--ink);border-radius:20px;padding:32px;color:white;transition:transform 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:32px;margin-bottom:16px;">🍽️</div>
-          <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;">A Fuego Lento</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Parrilla & Pastas · Villa Gesell</div>
-          <div style="color:var(--accent);font-size:14px;font-weight:500;">Abrir demo →</div>
+
+  <!-- ============================================================
+       PLANES Y PRECIOS
+       ============================================================ -->
+  <section class="precios" id="planes" aria-labelledby="precios-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="eyebrow">Planes</span>
+        <h2 class="section-title" id="precios-title">
+          Menos de lo que<br>gastás en delivery por mes.
+        </h2>
+        <p class="section-sub">
+          Sin contratos largos. Sin letra chica. El setup se paga una sola vez.
+        </p>
+      </header>
+
+      <div class="planes-grid">
+
+        <!-- Plan Básico -->
+        <div class="plan-card" aria-label="Plan Básico">
+          <div class="plan-card__header">
+            <span class="plan-card__name">Básico</span>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">USD</span>
+              <span class="plan-card__amount">49</span>
+              <span class="plan-card__period">/mes</span>
+            </div>
+            <p class="plan-card__setup">+ USD 250 de setup (única vez)</p>
+          </div>
+          <ul class="plan-card__features" aria-label="Incluye">
+            <li>App web personalizada para tu negocio</li>
+            <li>Asistente con IA disponible 24/7</li>
+            <li>Carta, servicios o catálogo completo</li>
+            <li>Horarios, ubicación y contacto</li>
+            <li>Perfecto en celular</li>
+            <li>Hosting incluido</li>
+          </ul>
+          <a href="#contacto" class="plan-card__cta plan-card__cta--ghost">Empezar con Básico</a>
         </div>
-      </a>
-      <a href="https://celadon-faun-274079.netlify.app/" target="_blank" style="text-decoration:none;">
-        <div class="demo-card reveal" style="background:var(--ink);border-radius:20px;padding:32px;color:white;transition:transform 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:32px;margin-bottom:16px;">🏡</div>
-          <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;">Los Manantiales</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Hospedaje · Villa Gesell</div>
-          <div style="color:var(--accent);font-size:14px;font-weight:500;">Abrir demo →</div>
+
+        <!-- Plan Estándar (destacado) -->
+        <div class="plan-card plan-card--featured" aria-label="Plan Estándar — más elegido">
+          <div class="plan-card__badge">Más elegido</div>
+          <div class="plan-card__header">
+            <span class="plan-card__name">Estándar</span>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">USD</span>
+              <span class="plan-card__amount">89</span>
+              <span class="plan-card__period">/mes</span>
+            </div>
+            <p class="plan-card__setup">+ USD 250 de setup (única vez)</p>
+          </div>
+          <ul class="plan-card__features" aria-label="Incluye">
+            <li>Todo lo del plan Básico</li>
+            <li>Dominio propio (turestaurante.com)</li>
+            <li>2 actualizaciones de contenido por mes</li>
+            <li>Soporte prioritario por WhatsApp</li>
+            <li>Múltiples idiomas</li>
+            <li>Integración WhatsApp Business</li>
+          </ul>
+          <a href="#contacto" class="plan-card__cta plan-card__cta--primary">Empezar con Estándar</a>
         </div>
-      </a>
-      <a href="https://belladona.vercel.app/" target="_blank" style="text-decoration:none;">
-        <div class="demo-card reveal" style="background:var(--ink);border-radius:20px;padding:32px;color:white;transition:transform 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:32px;margin-bottom:16px;">✂️</div>
-          <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;">Bella Donna Studio</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Peluquería & Beauty · Villa Gesell</div>
-          <div style="color:var(--accent);font-size:14px;font-weight:500;">Abrir demo →</div>
-        </div>
-      </a>
-      <a href="https://sonrisaok.netlify.app/" target="_blank" style="text-decoration:none;">
-        <div class="demo-card reveal" style="background:var(--ink);border-radius:20px;padding:32px;color:white;transition:transform 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:32px;margin-bottom:16px;">🦷</div>
-          <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;">Sonrisa Plena</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Odontología · Villa Gesell</div>
-          <div style="color:var(--accent);font-size:14px;font-weight:500;">Abrir demo →</div>
-        </div>
-      </a>
+
+      </div>
+
+      <p class="precios__nota">
+        ¿Necesitás algo más específico?
+        <a href="#contacto" class="precios__nota-link">Hablemos y armamos algo a medida →</a>
+      </p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PLANES -->
-<section id="planes">
-  <div class="container">
-    <p class="section-label reveal">Planes y precios</p>
-    <h2 class="section-title reveal">Invertís menos de lo que<br>pagás de café al mes.</h2>
-    <p class="section-sub reveal">Sin contratos largos. Sin sorpresas. Podés empezar hoy.</p>
-    <div class="planes-grid">
 
-      <!-- BÁSICO -->
-      <div class="plan-card reveal">
-        <div class="plan-name">🥉 Básico</div>
-        <div class="plan-price"><span>USD </span>49</div>
-        <div class="plan-period">por mes</div>
-        <div class="plan-setup">+ USD 250 de setup inicial (una sola vez)</div>
-        <ul class="plan-features">
-          <li>App web personalizada para tu negocio</li>
-          <li>Asistente con IA disponible 24/7</li>
-          <li>Carta, servicios o catálogo completo</li>
-          <li>Horarios, ubicación y contacto</li>
-          <li>Se ve perfecto en celular</li>
-          <li>Hosting incluido</li>
-          <li class="off">Dominio propio (.com)</li>
-          <li class="off">Actualizaciones de contenido</li>
-          <li class="off">Múltiples idiomas</li>
-        </ul>
-        <a href="#contacto" class="plan-cta">Empezar con Básico</a>
-      </div>
+  <!-- ============================================================
+       FAQs
+       ============================================================ -->
+  <section class="faqs" id="faqs" aria-labelledby="faqs-title">
+    <div class="container">
+      <header class="section-header section-header--split">
+        <div>
+          <span class="eyebrow">Preguntas</span>
+          <h2 class="section-title" id="faqs-title">
+            Todo lo que<br>querés saber.
+          </h2>
+        </div>
+        <p class="section-sub">
+          Si hay algo más que no está acá,
+          escribinos por WhatsApp y te respondemos
+          en menos de 24hs.
+        </p>
+      </header>
 
-      <!-- ESTÁNDAR -->
-      <div class="plan-card featured reveal">
-        <div class="plan-badge">⭐ MÁS ELEGIDO</div>
-        <div class="plan-name">🥈 Estándar</div>
-        <div class="plan-price"><span>USD </span>89</div>
-        <div class="plan-period">por mes</div>
-        <div class="plan-setup">+ USD 250 de setup inicial (una sola vez)</div>
-        <ul class="plan-features">
-          <li>Todo lo del plan Básico</li>
-          <li>Dominio propio (ej: turestaurante.com)</li>
-          <li>2 actualizaciones de contenido por mes</li>
-          <li>Soporte prioritario por WhatsApp</li>
-          <li class="off">Múltiples idiomas</li>
-          <li class="off">Integración WhatsApp Business</li>
-        </ul>
-        <a href="#contacto" class="plan-cta">Empezar con Estándar</a>
-      </div>
+      <dl class="faq-list" aria-label="Preguntas frecuentes">
 
+        <div class="faq-item">
+          <dt>
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-1">
+              ¿Cuánto tarda en estar lista mi app?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="faq-answer" id="faq-1" hidden>
+            Entre 3 y 5 días hábiles desde que nos mandás la información de tu negocio. Nos encargamos de todo el desarrollo y la publicación.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-2">
+              ¿Necesito saber de tecnología?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="faq-answer" id="faq-2" hidden>
+            Para nada. Vos nos mandás la información de tu negocio —carta, precios, horarios— y nosotros hacemos todo. El resultado es un link que compartís con tus clientes.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-3">
+              ¿Qué pasa si quiero cambiar precios o el menú?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="faq-answer" id="faq-3" hidden>
+            Nos avisás por WhatsApp y lo actualizamos. En el plan Estándar incluimos 2 actualizaciones por mes sin costo adicional.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-4">
+              ¿El asistente puede equivocarse?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="faq-answer" id="faq-4" hidden>
+            Como cualquier IA, puede tener errores ocasionales. Por eso lo configuramos con la información exacta de tu negocio. Si no sabe algo, lo dice y te deriva a vos directamente.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-5">
+              ¿Puedo cancelar cuando quiera?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="faq-answer" id="faq-5" hidden>
+            Sí. El compromiso mínimo es de 3 meses para amortizar el setup inicial. Después podés cancelar con 15 días de aviso.
+          </dd>
+        </div>
+
+      </dl>
     </div>
-    <p style="text-align:center;margin-top:32px;color:var(--gray);font-size:14px;">¿Necesitás algo más específico? <a href="#contacto" style="color:var(--accent2);font-weight:500;">Hablemos y armamos algo a medida.</a></p>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section style="background:var(--light);">
-  <div class="container">
-    <p class="section-label reveal">Preguntas frecuentes</p>
-    <h2 class="section-title reveal">Todo lo que querés saber.</h2>
-    <div class="faq-list reveal">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Cuánto tarda en estar lista mi app?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Entre 3 y 5 días hábiles desde que nos mandás la información de tu negocio. Nosotros nos encargamos de todo el desarrollo y la publicación.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Necesito saber de tecnología?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Para nada. Vos nos mandás la información de tu negocio (carta, precios, horarios) y nosotros hacemos todo. El resultado es un link que compartís con tus clientes.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Qué pasa si quiero cambiar precios o el menú?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Nos avisás por WhatsApp y lo actualizamos. En el plan Estándar incluimos 2 actualizaciones por mes sin costo adicional.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿El asistente puede equivocarse?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Como cualquier IA, puede tener errores ocasionales. Por eso lo configuramos con la información exacta de tu negocio. Si no sabe algo, lo dice y te deriva a vos directamente.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Puedo cancelar cuando quiera?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Sí. El compromiso mínimo es de 3 meses para amortizar el setup inicial. Después podés cancelar con 15 días de aviso.</div>
+
+  <!-- ============================================================
+       CTA FINAL
+       ============================================================ -->
+  <section class="cta-final" id="contacto" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-final__box">
+        <!-- Glow decorativo -->
+        <div class="cta-final__glow" aria-hidden="true"></div>
+
+        <div class="cta-final__content">
+          <span class="eyebrow" style="color: rgba(200,240,76,0.6);">Sin compromiso</span>
+          <h2 class="cta-final__title" id="cta-title">
+            ¿Querés que tu negocio<br>atienda solo?
+          </h2>
+          <p class="cta-final__sub">
+            Escribinos y en menos de 24hs te mostramos cómo quedaría
+            el asistente para tu negocio específico.
+          </p>
+          <a
+            href="https://wa.me/5493757364194?text=Hola!%20Vi%20Aizly%20y%20me%20interesa%20saber%20m%C3%A1s%20sobre%20el%20asistente%20virtual%20para%20mi%20negocio."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary btn-primary--lg"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Escribirnos por WhatsApp
+          </a>
+          <p class="cta-final__trust">Respondemos en menos de 24hs · Sin spam · Sin compromiso</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA FINAL -->
-<section class="cta-final" id="contacto">
-  <h2 class="section-title reveal">¿Querés que tu negocio<br>atienda solo?</h2>
-  <p class="reveal">Escribinos y en menos de 24hs te mostramos cómo quedaría el asistente para tu negocio. Sin compromiso.</p>
-  <a href="https://wa.me/5493757364194?text=Hola!%20Vi%20Aizly%20y%20me%20interesa%20saber%20m%C3%A1s%20sobre%20el%20asistente%20virtual%20para%20mi%20negocio." target="_blank" class="btn-primary reveal">Escribirnos por WhatsApp →</a>
-  <p class="wa-note">Respondemos en menos de 24hs · Sin spam · Sin compromiso</p>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <strong>Aizly</strong> · Asistentes virtuales con IA para negocios · 2026
-</footer>
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <a href="/" class="nav__logo" aria-label="Aizly — inicio">Aizly<span style="color:var(--accent)">.</span></a>
+      <p class="footer__copy">Asistentes virtuales con IA para negocios · 2026</p>
+      <a
+        href="https://wa.me/5493757364194"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer__wa"
+        aria-label="Contactar por WhatsApp"
+      >WhatsApp →</a>
+    </div>
+  </footer>
 
-<script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // FAQ toggle
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-</script>
+  <!-- ============================================================
+       ANIMACIÓN DEL CHAT (JS puro, sin dependencias)
+       ============================================================ -->
+  <script>
+    /**
+     * Anima una conversación de ejemplo en el mockup del hero.
+     * Sin librerías externas. Accesible via aria-live="polite".
+     */
+    (function () {
+      const chatBody = document.getElementById('chat-body');
+      if (!chatBody) return;
+
+      // Conversación de ejemplo (rubro gastronomía)
+      const messages = [
+        { from: 'user', text: '¿Tienen mesa para 4 personas el sábado a las 21h?' },
+        { from: 'bot',  text: '¡Hola! Claro que sí 😊 El sábado a las 21h tenemos disponibilidad. ¿A qué nombre reservo?' },
+        { from: 'user', text: 'Martínez, por favor. ¿Tienen menú vegetariano?' },
+        { from: 'bot',  text: 'Perfecto, Martínez ✅ Sí, tenemos pasta primavera, empanadas de verduras y ensalada de la huerta. ¿Querés que te mande la carta completa?' },
+      ];
+
+      let index = 0;
+
+      function appendMessage(msg) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `msg msg--${msg.from}`;
+        wrapper.style.animationDelay = '0ms';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg__bubble';
+        bubble.textContent = msg.text;
+
+        wrapper.appendChild(bubble);
+        chatBody.appendChild(wrapper);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function showTyping() {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'msg msg--bot msg--typing';
+        wrapper.id = 'typing-indicator';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg__bubble';
+        bubble.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+
+        wrapper.appendChild(bubble);
+        chatBody.appendChild(wrapper);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function removeTyping() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+      }
+
+      function playNext() {
+        if (index >= messages.length) {
+          // Reinicia la conversación tras pausa larga
+          setTimeout(() => {
+            chatBody.innerHTML = '';
+            index = 0;
+            playNext();
+          }, 4000);
+          return;
+        }
+
+        const msg = messages[index];
+        index++;
+
+        if (msg.from === 'bot') {
+          // Muestra indicador de escritura antes de la respuesta del bot
+          showTyping();
+          setTimeout(() => {
+            removeTyping();
+            appendMessage(msg);
+            // Siguiente mensaje después de una pausa
+            setTimeout(playNext, 1600);
+          }, 1200);
+        } else {
+          appendMessage(msg);
+          setTimeout(playNext, 900);
+        }
+      }
+
+      // Arranca con un pequeño delay para que el hero ya esté visible
+      setTimeout(playNext, 1000);
+    })();
+
+    /* ============================================================
+       FAQ ACORDEÓN
+       ============================================================ */
+    (function () {
+      const buttons = document.querySelectorAll('.faq-btn');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          const answerId = btn.getAttribute('aria-controls');
+          const answer   = document.getElementById(answerId);
+
+          // Cierra todos los demás
+          buttons.forEach(b => {
+            b.setAttribute('aria-expanded', 'false');
+            const a = document.getElementById(b.getAttribute('aria-controls'));
+            if (a) a.hidden = true;
+          });
+
+          // Abre o cierra el actual
+          if (!expanded) {
+            btn.setAttribute('aria-expanded', 'true');
+            answer.hidden = false;
+          }
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
