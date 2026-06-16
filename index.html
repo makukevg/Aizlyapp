@@ -690,17 +690,7 @@
       transform: translateX(4px) translateY(-4px);
     }
 
-    /* ============================================================
-       LAYOUT INTERNO DE TARJETA GRANDE (gastronomía)
-       ============================================================ */
-    .bento__card--gastro .bento__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    /* En la card grande el icono va arriba a la izquierda */
+    /* Card gastro: icono más grande */
     .bento__card--gastro .bento__icon { font-size: 36px; }
 
     /* ============================================================
@@ -730,9 +720,6 @@
         grid-column: 1 / -1;
       }
 
-      .bento__card--gastro .bento__inner {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 600px) {
@@ -1305,9 +1292,9 @@
 
       <!-- Copy humano, sin clichés -->
       <p class="hero__sub">
-        Mientras vos dormís, tu WhatsApp responde reservas.
         Mientras atendés la mesa 4, un cliente nuevo pregunta por el menú
         y recibe respuesta en <strong>menos de 3 segundos</strong>.
+        Sin que vos hagas nada.
       </p>
 
       <!-- CTAs -->
@@ -1408,48 +1395,28 @@
         >
           <span class="bento__icon" aria-hidden="true">🍽️</span>
 
-          <div class="bento__inner">
-            <div class="bento__content">
-              <span class="bento__rubro">Gastronomía</span>
-              <h3 class="bento__title">Tu carta siempre disponible.<br>Reservas sin llamadas.</h3>
-              <p class="bento__desc">
-                Parrillas, restaurantes, cafeterías, deliveries.
-                El asistente muestra el menú, responde por los especiales del día
-                y guía al cliente a reservar — sin que vos muevas un dedo.
-              </p>
-              <div class="bento__tags" aria-label="Capacidades">
-                <span class="bento__tag">Carta digital</span>
-                <span class="bento__tag">Horarios</span>
-                <span class="bento__tag">Reservas</span>
-                <span class="bento__tag">Especiales del día</span>
-              </div>
-            </div>
-
-            <!-- Mockup decorativo en la card grande -->
-            <div aria-hidden="true" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:10px;">
-              <div style="font-size:12px; color:var(--muted); margin-bottom:4px;">Consulta real de cliente</div>
-              <div style="font-size:13px; background:rgba(255,255,255,0.05); border-radius:10px 10px 10px 2px; padding:10px 13px; color:#C0BEB9;">
-                ¿Tienen opciones vegetarianas?
-              </div>
-              <div style="font-size:13px; background:rgba(200,240,76,0.08); border:1px solid rgba(200,240,76,0.1); border-radius:10px 10px 2px 10px; padding:10px 13px; color:var(--text);">
-                ¡Sí! Tenemos empanadas de verduras, pasta primavera y nuestra ensalada de la huerta. ¿Querés ver el menú completo?
-              </div>
+          <div class="bento__content">
+            <span class="bento__rubro">Gastronomía</span>
+            <h3 class="bento__title">Tu carta siempre disponible.<br>Reservas sin llamadas.</h3>
+            <p class="bento__desc">
+              Parrillas, restaurantes, cafeterías, deliveries.
+              El asistente muestra el menú, responde por los especiales del día
+              y guía al cliente a reservar — sin que vos muevas un dedo.
+            </p>
+            <div class="bento__tags" aria-label="Capacidades">
+              <span class="bento__tag">Carta digital</span>
+              <span class="bento__tag">Horarios</span>
+              <span class="bento__tag">Reservas</span>
+              <span class="bento__tag">Especiales del día</span>
             </div>
           </div>
 
-          <a
-            href="https://afuegolento.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bento__link"
-            tabindex="-1"
-            aria-hidden="true"
-          >
+          <span class="bento__link" aria-hidden="true">
             Ver demo — A Fuego Lento
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </a>
+          </span>
         </a>
 
         <!-- ───────────────────────────────────────
